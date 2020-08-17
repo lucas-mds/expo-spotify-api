@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest, ResponseType } from 'expo-auth-session';
-import { Button } from 'react-native';
+import { Button, SafeAreaView, StatusBar  } from 'react-native';
 
 import spotify_api from './src/config/spotify_api';
 
@@ -48,15 +48,18 @@ export default function App() {
 
   return (
     <>
-      <Button
-        disabled={!request}
-        title="Login"
-        onPress={() => {
-          promptAsync();
-          }}
-      />
+      <StatusBar />
+      <SafeAreaView style={{ flex: 1 }}>
+        <Button
+          disabled={!request}
+          title="Login"
+          onPress={() => {
+            promptAsync();
+            }}
+        />
 
-      <Button title="profile" onPress={fetchProfile}/>
+        <Button title="GET PROFILE INFO" onPress={fetchProfile}/>
+      </SafeAreaView>
     </>
   );
 }
