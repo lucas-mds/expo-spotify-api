@@ -36,7 +36,6 @@ export default function({ navigation }) {
       if (access_token) {
         newState({token: access_token})
         setItem('token', access_token)
-        console.log(access_token)
         navigation.navigate('Home');
       }
     }

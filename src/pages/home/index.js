@@ -9,8 +9,13 @@ export default function({ navigation }) {
   const { newState } = useGlobalContext();
 
   const fetchPlaylists = () => {
-    spotify_api.get('/v1/me/playlists', { headers: { Authorization: `Bearer ${token}` } })
-      .then(response => console.log(response))
+    spotify_api.get('/v1/me/playlists')
+      .then(response => {
+        const items = response.data.items;
+
+        console.log('total ', items.length);
+        items.map(item => console.log(item.name))
+      })
       .catch(error => console.log(error.response));
   }
 
