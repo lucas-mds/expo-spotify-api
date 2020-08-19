@@ -18,11 +18,12 @@ export default function ({ navigation, route }) {
               id: item.track.id,
               primaryText: item.track.name,
               secondaryText: item.track.artists[0].name,
+              detailsText: item.track.duration_ms,
               imageURL: item.track.album.images[0].url,
             }
           ))
         console.log(items)
-        // setTrackItems(items);
+        setTrackItems(items);
       })
       .catch(error => console.log(error))
   }
