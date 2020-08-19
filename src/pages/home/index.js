@@ -1,22 +1,33 @@
 import React from 'react';
-import { getItem, setItem } from '../../utils/storage';
+import { setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
 import spotify_api from '../../config/spotify_api';
 
-import UI from './styles';
+import UI from './layout';
 
 export default function({ navigation }) {
   const { newState } = useGlobalContext();
+  const [playlistItems, setPlaylistItems] = React.useState([]);
 
   const fetchPlaylists = () => {
     spotify_api.get('/v1/me/playlists')
       .then(response => {
-        const items = response.data.items;
+        const items = response.data.items.map(item => ({
+          id: item.id,
+          primaryText: item.name,
+          secondaryText: `${item.tracks.total} música${item.tracks.total > 1 ? 's' : ''}`,
+          imageURL: item.images[0].url,
+        }));
 
-        console.log('total ', items.length);
-        items.map(item => console.log(item.name))
+        setPlaylistItems(items);
       })
       .catch(error => console.log(error.response));
+  }
+
+  const onPlaylistPress = (playlist) => {
+    console.log('clicked ', playlist)
+
+    navigation.navigate('Playlist', { playlist_id: playlist.id });
   }
 
   const signOut = () => {
@@ -25,7 +36,13 @@ export default function({ navigation }) {
     navigation.navigate('Login');
   }
 
+  React.useEffect(fetchPlaylists, []);
+
   return (
-    <UI signOut={signOut} fetchPlaylists={fetchPlaylists} />
+    <UI
+      signOut={signOut}
+      items={playlistItems}
+      onItemPress={onPlaylistPress}
+    />
   )
 };

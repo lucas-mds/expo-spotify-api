@@ -2,7 +2,7 @@ import React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest, ResponseType } from 'expo-auth-session';
 import { clientId } from '../../../credentials';
-import UI from './styles';
+import UI from './layout';
 import { setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
 
