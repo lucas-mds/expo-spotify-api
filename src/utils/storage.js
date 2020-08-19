@@ -3,7 +3,7 @@ import isParsable from './isParsable';
 
 export const setItem = (key, item) => {
   const data = typeof item === 'object' ? JSON.stringify(item) : item;
-  AsyncStorage.setItem(key, data);
+  return AsyncStorage.setItem(key, data);
 };
 
 export const getItem = async(key) => {

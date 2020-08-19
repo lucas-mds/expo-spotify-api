@@ -2,19 +2,12 @@ import React, { createContext, useContext } from 'react';
 
 const GlobalContext = createContext();
 
-const defaultState = { signed: true, loading: true };
-
 function GlobalContextProvider({children}) {
-  const[state, setState] = React.useState(defaultState);
-
-  React.useEffect(() => {
-    console.log('rodando apenas uma vez');
-    setState(current => ({
-      ...current,
-      loading: false,
-      setLoading: (newValue) =>  setState(_ => ({ ..._, loading: newValue })),
-    }))
-  }, []);
+  const[state, setState] = React.useState({
+    loading: false,
+    newState: (value) => setState(_ => ({..._, ...value})),
+    setLoading: (newValue) =>  setState(_ => ({ ..._, loading: newValue })),
+  });
 
   return (
     <GlobalContext.Provider value={state}>

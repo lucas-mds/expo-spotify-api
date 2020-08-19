@@ -1,9 +1,11 @@
 import React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest, ResponseType } from 'expo-auth-session';
-import spotify_api from '../../config/spotify_api';
-import { clientId } from '../../../credentials'
+import { clientId } from '../../../credentials';
 import UI from './styles';
+import { setItem } from '../../utils/storage';
+import { useGlobalContext } from '../../config/global-context';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -13,13 +15,13 @@ const discovery = {
 };
 
 
-export default function() {
-  const [token, setToken] = React.useState('');
+export default function({ navigation }) {
+  const { newState } = useGlobalContext();
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
       clientId,
-      scopes: ['user-read-email', 'playlist-modify-public'],
+      scopes: ['user-read-email', 'playlist-modify-public', 'playlist-read-collaborative', 'playlist-read-private'],
       usePKCE: false,
       redirectUri: makeRedirectUri({
         useProxy: false,
@@ -31,11 +33,15 @@ export default function() {
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { access_token } = response.params;
-      setToken(access_token)
+      if (access_token) {
+        newState({token: access_token})
+        setItem('token', access_token)
+        console.log(access_token)
+        navigation.navigate('Home');
       }
+    }
   }, [response]);
 
-  console.log('meu token ', token)
 
   return(
     <UI signIn={() => promptAsync()} />
