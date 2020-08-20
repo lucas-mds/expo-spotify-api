@@ -10,13 +10,15 @@ export default function({ navigation }) {
   useEffect(() => {
     const verifyAuthentication = async() => {
         const token = await getItem('token');
-        if (!token) {
-          navigation.navigate('Login');
-        } else {
-          newState({token: token})
-          setItem('token', token)
-          navigation.navigate('Home');
-        }
+        setTimeout(() => {
+          if (!token) {
+            navigation.navigate('Login');
+          } else {
+            newState({token: token})
+            setItem('token', token)
+            navigation.navigate('Home');
+          }
+        }, 1500)
     };
 
     verifyAuthentication();
