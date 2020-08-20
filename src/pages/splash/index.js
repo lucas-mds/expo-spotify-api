@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { getItem, setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
 
-import UI from './styles';
+import UI from './layout';
 
 export default function({ navigation }) {
   const { newState } = useGlobalContext();

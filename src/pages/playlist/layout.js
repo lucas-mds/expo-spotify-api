@@ -7,7 +7,6 @@ import List from '../../components/List';
 export default function ({ items }) {
   return (
     <View>
-      <Text>Sua playlist aqui</Text>
       <List
         items={items}
         ItemComponent={PlaylistListItem}

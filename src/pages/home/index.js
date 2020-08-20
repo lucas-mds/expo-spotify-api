@@ -2,7 +2,7 @@ import React from 'react';
 import { setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
 import spotify_api from '../../config/spotify_api';
-
+import { FontAwesome } from '@expo/vector-icons';
 import UI from './layout';
 
 export default function({ navigation }) {
@@ -25,9 +25,7 @@ export default function({ navigation }) {
   }
 
   const onPlaylistPress = (playlist) => {
-    console.log('clicked ', playlist)
-
-    navigation.navigate('Playlist', { playlist_id: playlist.id });
+    navigation.navigate('Playlist', { playlist_id: playlist.id, title: playlist.primaryText });
   }
 
   const signOut = () => {
@@ -38,9 +36,16 @@ export default function({ navigation }) {
 
   React.useEffect(fetchPlaylists, []);
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <FontAwesome.Button name="sign-out" backgroundColor="#5D4CC3" iconStyle={{ marginRight: 0 }} onPress={signOut} />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <UI
-      signOut={signOut}
       items={playlistItems}
       onItemPress={onPlaylistPress}
     />

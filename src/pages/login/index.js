@@ -5,7 +5,7 @@ import { clientId } from '../../../credentials';
 import UI from './layout';
 import { setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
-
+// import prevent_going_back from '../../utils/prevent_going_back';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -33,6 +33,7 @@ export default function({ navigation }) {
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { access_token } = response.params;
+
       if (access_token) {
         newState({token: access_token})
         setItem('token', access_token)

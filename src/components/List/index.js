@@ -1,8 +1,6 @@
 import React from 'react';
-
-import { ScrollView } from 'react-native';
-
-import UI from './layout';
+import { useNavigation } from '@react-navigation/native';
+import { ScrollView, Button } from 'react-native';
 
 export default function({
   items,

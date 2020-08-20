@@ -13,15 +13,22 @@ import Playlist from './src/pages/playlist/';
 
 const Stack = createStackNavigator();
 
+const HeaderStyle = {
+  headerStyle: {
+    backgroundColor: '#5D4CC3',
+  },
+  headerTintColor: '#fff',
+}
+
 export default function App() {
   return (
     <GlobalContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Playlist" component={Playlist} />
+          <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false, ...HeaderStyle }} />
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false, ...HeaderStyle }} />
+          <Stack.Screen name="Home" component={Home} options={{ title: 'Minhas Playlists', ...HeaderStyle, headerLeft: () => null }} />
+          <Stack.Screen name="Playlist" component={Playlist} options={({ route }) => ({ title: route.params.title, ...HeaderStyle })} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContextProvider>

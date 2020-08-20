@@ -1,20 +1,22 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import styled from 'styled-components/native';
 
-export default function() {
-  return(
-    <View style={{ justifyContent: 'center', flex: 1 }}>
-      <Image
-        style={{
-          width: 50,
-          height: 50,
-          alignSelf: 'center'
-        }}
-        source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}
-      />
-      <Text style={{ alignSelf: 'center' }}>made by lucasmds</Text>
-    </View>
-  )
-};
+export const Container = styled.View`
+  flex: 1;
+  background-color: #5D4CC3;
+  align-items: center;
+  padding: 16px;
+`;
+
+export const ImageContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
+export const Logo = styled.Image`
+  width: 120px;
+  height: 120px;
+`;
+
+export const Footer = styled.Text`
+  color: white;
+`;
