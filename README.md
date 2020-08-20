@@ -2,7 +2,7 @@
 
 This project uses EXPO to access spotify API, listing the user's playslists and its tracks.
 
-<img src="demo.gif" width="600">
+<img src="demo.gif" width="200">
 
 # Requisites
 You have to configure and register your aplication at [Spotify](https://developer.spotify.com/documentation/web-api/quick-start/). 
@@ -22,6 +22,6 @@ Get your Client ID and put in the file 'credientais.js'. 'credentials.mock.js' i
 - add loading spinner when fetching data
 - improve search modal and its filters
 - add interceptor for error 401
-
+- use virtualized list for perfomance boost
 
 
