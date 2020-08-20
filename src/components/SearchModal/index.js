@@ -2,7 +2,7 @@ import React from 'react';
 
 import UI from './layout';
 
-export default function({ open, formConfig }) {
+export default function({ open, onBackdropPress, formConfig }) {
   const [values, setValues] = React.useState({
     string: '',
   })
@@ -11,10 +11,17 @@ export default function({ open, formConfig }) {
     setValues({ ...values, [field]: value })
   }
 
+  const clearValues = () => {
+    setValues({
+      string: '',
+    });
+  }
+
   return(
     <UI
       open={open}
-      formConfig={{...formConfig, values, setValue }}
+      onBackdropPress={onBackdropPress}
+      formConfig={{...formConfig, values, setValue, clearValues }}
     />
   )
 };

@@ -95,8 +95,10 @@ export default function({ navigation }) {
       onItemPress={onPlaylistPress} 
       searchConfig={{
         open,
+        onBackdropPress: () => setOpen(false),
         formConfig: {
           configFilter,
+          type: 'playlist',
         },
       }}
     />
