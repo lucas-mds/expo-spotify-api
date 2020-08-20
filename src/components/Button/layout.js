@@ -6,11 +6,12 @@ import {
 } from './styles';
 
 
-export default function({ color, text, onPress }) {
+export default function({ color, text, onPress, width }) {
   return (
     <ButtonContainer
+      width={width}
       onPress={onPress}
-      color={color}
+      color={color || '#5D4CC3'}
     >
       <ButtonText>
         {text}

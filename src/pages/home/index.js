@@ -11,6 +11,8 @@ import UI from './layout';
 export default function({ navigation }) {
   const { newState } = useGlobalContext();
   const [playlistItems, setPlaylistItems] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [filters, setFilters] = React.useState(null);
 
   const fetchPlaylists = () => {
     spotify_api.get('/v1/me/playlists')
@@ -20,6 +22,8 @@ export default function({ navigation }) {
           primaryText: item.name,
           secondaryText: `${item.tracks.total} música${item.tracks.total > 1 ? 's' : ''}`,
           imageURL: item.images[0].url,
+          public: item.public,
+          collaborative: item.collaborative,
         }));
 
         setPlaylistItems(items);
@@ -38,7 +42,38 @@ export default function({ navigation }) {
   }
 
   const openSearch = () => {
-    console.log('abrir filtros')
+    setOpen(true);
+  }
+
+  const configFilter = (values) => {
+    setFilters(values);
+    setOpen(false);
+  }
+
+  const filterItems = (items) => {
+    let filteredItems = items.map(item => item);
+    if (filters !== null) {
+
+      if (filters.string.length > 0) {
+        filteredItems = filteredItems.filter(item => {
+          const string = item.primaryText.toLowerCase();
+          const searchString = filters.string.toLowerCase();
+          return string.search(searchString) >= 0;
+        })
+      }
+
+      if (filters.public) {
+        filteredItems = filteredItems.filter(item => item.public === true)
+      }
+
+      if (filters.collaborative) {
+        filteredItems = filteredItems.filter(item => item.collaborative === true)
+      }
+
+      return filteredItems;
+    }
+
+    return items;
   }
 
   React.useEffect(fetchPlaylists, []);
@@ -56,8 +91,14 @@ export default function({ navigation }) {
 
   return (
     <UI
-      items={playlistItems}
-      onItemPress={onPlaylistPress}
+      items={filterItems(playlistItems)}
+      onItemPress={onPlaylistPress} 
+      searchConfig={{
+        open,
+        formConfig: {
+          configFilter,
+        },
+      }}
     />
   )
 };
