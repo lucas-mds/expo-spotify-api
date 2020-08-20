@@ -1,9 +1,12 @@
 import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import { View } from 'react-native' 
+
 import { setItem } from '../../utils/storage';
 import { useGlobalContext } from '../../config/global-context';
 import spotify_api from '../../config/spotify_api';
-import { FontAwesome } from '@expo/vector-icons';
 import UI from './layout';
+
 
 export default function({ navigation }) {
   const { newState } = useGlobalContext();
@@ -34,12 +37,19 @@ export default function({ navigation }) {
     navigation.navigate('Login');
   }
 
+  const openSearch = () => {
+    console.log('abrir filtros')
+  }
+
   React.useEffect(fetchPlaylists, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <FontAwesome.Button name="sign-out" backgroundColor="#5D4CC3" iconStyle={{ marginRight: 0 }} onPress={signOut} />
+        <View style={{ flexDirection: 'row' }}>
+          <FontAwesome.Button name="search" backgroundColor="#5D4CC3" iconStyle={{ marginRight: 0 }} onPress={openSearch} />
+          <FontAwesome.Button name="sign-out" backgroundColor="#5D4CC3" iconStyle={{ marginRight: 0 }} onPress={signOut} />
+        </View>
       ),
     });
   }, [navigation]);
