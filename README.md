@@ -23,5 +23,6 @@ Get your Client ID and put in the file 'credientais.js'. 'credentials.mock.js' i
 - improve search modal and its filters
 - add interceptor for error 401
 - use virtualized list for perfomance boost
+- improve list item layout
 
 
